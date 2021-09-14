@@ -114,6 +114,12 @@ print("After transformation: ",rdd.groupByKey().mapValues(lambda x:[a+a for a in
 print("After transformation: ",rdd.groupByKey().mapValues(sum).collect())
 
 
+21--Create an empty RDD with partition
+rdd2 = spark.sparkContext.parallelize([],10)#This creates 10 partitions
+rdd2.collect()
+
+
+
 
 
        
