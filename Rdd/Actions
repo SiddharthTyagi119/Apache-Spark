@@ -1,0 +1,6 @@
+1--Returns the number of records in an RDD
+rdd=sc.parallelize([1,2,3,4,2,3])
+rdd.collect()
+print("Count : "+str(rdd.count()))
+
+
