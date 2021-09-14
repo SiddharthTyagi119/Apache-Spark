@@ -1,0 +1,123 @@
+1--Convert python list in Rdd
+data= [1,2,3,4,5] 
+rDD = sc.parallelize(data,3)
+rDD.collect()
+
+2--Create a rdd from a list and convert back it in list
+A=sc.parallelize([2,4,7])
+L=A.collect()
+print(type(L))
+print(L)
+
+3--Lambda function to multiply three numbers-
+rdd = sc.parallelize([1,2,3,4])
+rdd.reduce(lambda x,y: x * y)
+
+4--Convert unorder list into rdd
+rDD=sc.parallelize([5,3,1,2])
+rDD.takeOrdered(4, lambda s: 1*s)
+
+5--Show the number of elements
+B= sc.parallelize([2,4,7])
+B.count()
+
+6--To save the output-
+w= sc.parallelize([2,4,7])
+w.count()
+w.saveAsTextFile("/File Store /rDDData")
+
+7--To see the output
+%sh
+ls -ltr /dbfs/File Store /rDDData
+cat /dbfs/File Store /rDDData/*
+
+8--Find the shortest word in the list of words-
+words=['this','is','the','best','mac','ever']
+wordRDD= sc.parallelize(words)
+wordRDD.reduce(lambda w,v: w if len(w) < len(v) else v)
+
+9--Lambda fun. To subtract numbers-
+B=sc.parallelize([1,3,5,2])
+B.reduce(lambda x,y: x-y )
+
+
+10--Check by default prtition
+Z=sc.parallelize(range(1000000))
+print(Z.getNumPartitions())
+
+11--Change the number of default partition
+A=sc.parallelize(range(10))
+print(A.getNumPartitions())
+D=A.repartition(6)
+print(D.getNumPartitions())
+
+                OR
+Add number of desired partition number in paranthesis
+A=sc.parallelize(range(10),6)
+print(A.getNumPartitions())
+
+12--Map transformation
+rdd2=sc.parallelize([1,2,3])
+rdd2.map(lambda x:x*2).collect()
+
+13--Filter function
+rdd=sc.parallelize([1,2,3,4,5,6,7])
+rdd.filter(lambda x:x%2==0).collect()
+
+14--Distinct Function
+rdd=sc.parallelize([1,2,3,4,6])
+rdd.distinct().collect()
+
+15--Union
+rdd1=sc.parallelize([1,1,2,3])
+rdd2=sc.parallelize(['a','b',1])
+print('rdd1=',rdd1.collect())
+print('rdd1=',rdd2.collect())
+print('union as bag =',rdd1.union(rdd2).collect())
+print('union as bag =',rdd1.union(rdd2).distinct().collect())
+
+
+16--Map and Flat Map
+text=["you are my sunshine","my only sunshine"]
+text=sc.parallelize(text)
+         
+## create one list for one sentence
+print('map:',text.map(lambda line: line.split(" ")).collect())
+
+## create a single list of words by combining the words from all of the lines
+print('flatmap:',text.flatMap(lambda line: line.split(" ")).collect())
+
+17--Reduce By Key
+It will add the element of same key
+rdd =sc.parallelize([(2,2),(1,4),(2,6)])
+print("Original RDD :", rdd.collect())
+print("after transformation: ", rdd.reduceByKey(lambda a,b:a+b).collect())
+
+
+18--Sort By Key
+It will sort the values on the basis of key 
+rdd =sc.parallelize([(2,2),(1,4),(3,6),(4,8)])
+print("Original RDD :", rdd.collect())
+print("after transformation: ", rdd.sortByKey().collect())
+
+
+19--Map value
+Its double the value
+rdd =sc.parallelize([(1,2),(2,4),(2,6)])
+print("Original RDD :", rdd.collect())
+print("after transformation: ", rdd.mapValues(lambda x: x*x).collect())
+
+20--Combine narrow and wide transformation
+rdd =sc.parallelize([(1,2),(2,4),(2,6)])
+print("Original RDD :", rdd.collect())
+print("After transformation: ",rdd.groupByKey().mapValues(lambda x:[a+a for a in x]).collect())
+print("After transformation: ",rdd.groupByKey().mapValues(sum).collect())
+
+
+
+
+       
+
+
+
+
