@@ -3,4 +3,40 @@ rdd=sc.parallelize([1,2,3,4,2,3])
 rdd.collect()
 print("Count : "+str(rdd.count()))
 
+2--Max Value
+data= [1,2,3,4,5] 
+rDD = sc.parallelize(data,3).collect()
+rDD.max()
+
+3--Min Value
+data= [1,2,3,4,5] 
+rDD = sc.parallelize(data,3).collect()
+rDD.min()
+
+4--Mean value
+data= [1,2,3,4,5] 
+rDD = sc.parallelize(data,3).collect()
+rDD.mean()
+
+5--Standard Deviation of RDD elements
+data= [1,2,3,4,5] 
+rDD = sc.parallelize(data,3).collect()
+rDd.stdev()
+
+6--Get the Summary Statistics
+data= [1,2,3,4,5] 
+rDD = sc.parallelize(data,3).collect()
+rDD.stats()
+
+7--Return the first element in this RDD
+sc.parallelize([2, 3, 4]).first()
+
+8--Take the first "n" num elements of the RDD
+sc.parallelize([2, 3, 4, 5, 6]).cache().take(2)
+
+
+
+
+
+
 
