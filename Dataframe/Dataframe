@@ -58,7 +58,7 @@ people.printSchema()
 df.write.parquet("/FileStore/tables/output5")
 
 9--Creating Nested Dataframe
-import pyspark.sql import *
+from pyspark.sql import *
 
 #Create example data- Department and employee
 #Create the department df
@@ -87,5 +87,10 @@ display (df1)
 departmentwithEmployeeSeq2=[departmentwithemployee3 + departmentwithemployee4]
 df2=spark.createDataFrame(departmentwithEmployeeSeq2)
 display (df2)
+
+10--Join two dataframes
+uniondf=df1.union(df2)
+display(uniondf)
+
 
 
