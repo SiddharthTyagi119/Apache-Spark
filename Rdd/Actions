@@ -34,6 +34,11 @@ sc.parallelize([2, 3, 4]).first()
 8--Take the first "n" num elements of the RDD
 sc.parallelize([2, 3, 4, 5, 6]).cache().take(2)
 
+9--CountByValue
+#Return the count of each unique value in this RDD as a dictionary of (value, count) pairs.
+sorted(sc.parallelize([1, 2, 1, 2, 3], 4).countByValue().items())
+
+
 
 
 
