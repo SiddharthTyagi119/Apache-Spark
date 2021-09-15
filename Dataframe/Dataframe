@@ -92,5 +92,153 @@ display (df2)
 uniondf=df1.union(df2)
 display(uniondf)
 
+11-Creates Empty RDD
+emptyRDD = spark.sparkContext.emptyRDD()
+print(emptyRDD)
+ 
+                 OR
+rdd2= spark.sparkContext.parallelize([])
+print(rdd2)
+
+
+12-Create empty DataFrame from empty RDD
+##SCHEMA
+from pyspark.sql.types import StructType,StructField, StringType
+schema = StructType([
+  StructField('firstname', StringType(), True),
+  StructField('middlename', StringType(), True),
+  StructField('lastname', StringType(), True)
+  ])
+  #Empty RDD
+emptyRDD = spark.sparkContext.emptyRDD()
+#Create empty DataFrame from empty RDD
+df = spark.createDataFrame(emptyRDD,schema)
+df.printSchema()
+
+13-Create empty DataFrame from empty RDD
+df2 = spark.createDataFrame([], schema)
+df2.printSchema()
+
+14--Create empty DatFrame with no schema (no columns)
+df33 = spark.createDataFrame([], StructType([]))
+df33.printSchema()
+
+15--Create DataFrame with schema
+from pyspark.sql.types import StructType,StructField, StringType, IntegerType
+data2 = [("James","","Smith","36636","M",3000),
+    ("Michael","Rose","","40288","M",4000),
+    ("Robert","","Williams","42114","M",4000),
+    ("Maria","Anne","Jones","39192","F",4000),
+    ("Jen","Mary","Brown","","F",-1)
+  ]
+
+schema = StructType([ \
+    StructField("firstname",StringType(),True), \
+    StructField("middlename",StringType(),True), \
+    StructField("lastname",StringType(),True), \
+    StructField("id", StringType(), True), \
+    StructField("gender", StringType(), True), \
+    StructField("salary", IntegerType(), True) \
+  ])
+ 
+df = spark.createDataFrame(data=data2,schema=schema)
+df.printSchema()
+df.show(truncate=False)
+
+16--Creating DataFrame from CSV
+df2 = spark.read.csv("/src/resources/file.csv")
+
+17--Creating from text (TXT) file
+df2 = spark.read.text("/src/resources/file.txt")
+
+18--Convert PySpark Dataframe to Pandas DataFrame
+#Create a dataframe
+import pyspark
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
+
+data = [("James","","Smith","36636","M",60000),
+        ("Michael","Rose","","40288","M",70000),
+        ("Robert","","Williams","42114","",400000),
+        ("Maria","Anne","Jones","39192","F",500000),
+        ("Jen","Mary","Brown","","F",0)]
+
+columns = ["first_name","middle_name","last_name","dob","gender","salary"]
+pysparkDF = spark.createDataFrame(data = data, schema = columns)
+pysparkDF.printSchema()
+pysparkDF.show(truncate=False)
+
+#Convert PySpark Dataframe to Pandas DataFrame
+pandasDF = pysparkDF.toPandas()
+print(pandasDF)
+
+19--Checking if a Column Exists in a DataFrame
+print(df.schema.fieldNames.contains("firstname"))
+print(df.schema.contains(StructField("firstname",StringType,true)))
+
+20--Select Single & Multiple Columns 
+df.select(df["firstname"],df["lastname"]).show()
+df.select("firstname","lastname").show()
+
+21--Select All Columns
+df.select([col for col in df.columns]).show()
+df.select("*").show()
+
+22--Select Columns by Index
+df.select(df.columns[2:4]).show(3)
+
+23--Select Nested Struct Columns 
+df2.select("name").show(truncate=False)
+
+24--Get Distinct Rows
+distinctDF = df.distinct()
+print("Distinct count: "+str(distinctDF.count()))
+distinctDF.show(truncate=False)
+
+
+25--Distinct of Selected Multiple Columns
+dropDisDF = df.dropDuplicates(["department","salary"])
+print("Distinct count of department & salary : "+str(dropDisDF.count()))
+dropDisDF.show(truncate=False)
+
+
+26--DataFrame sorting using the sort() function
+df.sort("department","state").show(truncate=False)
+
+                         OR
+df.orderBy("department","state").show(truncate=False)
+
+27--Sort by Asc
+df.sort(col("department").asc(),col("state").asc()).show(truncate=False)
+
+28--Sort by Desc
+df.sort(col("department").desc(),col("state").desc()).show(truncate=False)
+
+29--DataFrame filter() with Column Condition
+=Equal
+df.filter(df.state == "NY").show(truncate=False)
+df.filter( (df.state  == "OH") & (df.gender  == "M") ) \
+    .show(truncate=False)  
+
+!=Not Equal
+df.filter(df.state != "OH") \
+    .show(truncate=False) 
+    
+30--Filter Based on Starts With, Ends With, Contains
+#startswith
+df.filter(df.state.startswith("N")).show()
+
+#using endswith
+df.filter(df.state.endswith("H")).show()
+
+#contains
+df.filter(df.state.contains("H")).show()
+
+31--Filtering on Nested Struct columns
+//Struct condition
+df.filter(df.name.lastname == "Williams") \
+    .show(truncate=False) 
+
 
 
