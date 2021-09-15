@@ -38,6 +38,10 @@ sc.parallelize([2, 3, 4, 5, 6]).cache().take(2)
 #Return the count of each unique value in this RDD as a dictionary of (value, count) pairs.
 sorted(sc.parallelize([1, 2, 1, 2, 3], 4).countByValue().items())
 
+10--Reduce the record to single
+rdd = sc.parallelize([1, 2, 3])
+rdd.reduce(lambda a, b: a * b)
+
 
 
 
