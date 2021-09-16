@@ -239,6 +239,8 @@ df.filter(df.state.contains("H")).show()
 //Struct condition
 df.filter(df.name.lastname == "Williams") \
     .show(truncate=False) 
+    
+32--
 
 
 
