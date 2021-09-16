@@ -240,7 +240,60 @@ df.filter(df.state.contains("H")).show()
 df.filter(df.name.lastname == "Williams") \
     .show(truncate=False) 
     
-32--
+32--Retrive all the data as an Array of Row type
+dataCollect = deptDF.collect()
+print(dataCollect)
 
+33-python for loop to retrive array type data
+for row in dataCollect:
+    print(row['dept_name'] + "," +str(row['dept_id']))
+    
+34--Returns the value of the first row & first column
+deptDF.collect()[0][0]
 
+35--To just return certain elements of a DataFrame
+dataCollect2= deptDF.select("dept_name").collect()
+print(dataCollect2)
+
+36--Change DataType
+df.withColumn("salary",col("salary").cast("Integer")).show()
+
+37--Create a Column from an Existing
+df.withColumn("CopiedColumn",col("salary")* -1).show()
+
+38--Rename Column Name
+df.withColumnRenamed("gender","sex") \
+  .show(truncate=False) 
+  
+39--Drop Column 
+df.drop("salary") \
+  .show() 
+  
+40--GroupBy for min,max,count,avg,mean
+df.groupBy("department").sum("salary").show(truncate=False)
+
+41--Group by on multiple columns
+df.groupBy("department","state") \
+    .sum("salary","bonus") \
+    .show(false)
+    
+42--Running more aggregates at a time
+
+df.groupBy("department") \
+    .agg(sum("salary").alias("sum_salary"), \
+         avg("salary").alias("avg_salary"), \
+         sum("bonus").alias("sum_bonus"), \
+         max("bonus").alias("max_bonus") \
+     ) \
+    .show(truncate=False)
+
+43--Using filter on aggregate data
+df.groupBy("department") \
+    .agg(sum("salary").alias("sum_salary"), \
+      avg("salary").alias("avg_salary"), \
+      sum("bonus").alias("sum_bonus"), \
+      max("bonus").alias("max_bonus")) \
+    .where(col("sum_bonus") >= 50000) \
+    .show(truncate=False)
+    
 
