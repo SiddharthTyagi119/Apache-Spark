@@ -1,1 +1,48 @@
+1--Return df column names and data types
+df.dtypes
 
+2--Display the content of df
+df.show()
+
+3--Return first n rows
+df.head(2)
+
+4--Return first row
+df.first()
+ 
+5--Return the first n rows
+df.take(2)
+ 
+6--Return the schema of df
+df.schema 
+
+7--Drop duplicates
+df.dropDuplicates()
+
+8--Update column name
+df = df.withColumnRenamed('telePhoneNumber', 'phoneNumber')
+
+9--Drop column
+df = df.drop("address", "phoneNumber")
+df = df.drop(df.address).drop(df.phoneNumber)
+
+10--Between
+df.select(df.age.between(22, 24)) .show() 
+
+11--Startswith - Endswith
+ df.select(df.lastame.endswith("na")).show()
+ df.select(df.firstname.startswith("sa")).show()
+ 
+12--Substring
+df.select(df.firstname.substr(1, 2).alias("name")).collect()
+
+13--Like
+df.select("firstName",df.lastName.like("Smith")),show()
+
+14--When
+from pyspark.sql import functions as F
+df.select("firstName",F.when(df.age > 19, 1).otherwise(0)).show()
+
+df[df.firstName.isin("Jane","Boris")].collect() 
+
+15--Select
