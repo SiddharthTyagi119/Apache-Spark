@@ -46,3 +46,64 @@ df.select("firstName",F.when(df.age > 19, 1).otherwise(0)).show()
 df[df.firstName.isin("Jane","Boris")].collect() 
 
 15--Select
+df.select("name","age").show()
+df.select(df['age'] > 24).show()
+
+16--Compute summary statistics
+df.describe().show()
+
+17--Returns the columns of df
+df.columns
+
+18--Count the number of rows in df
+df.count()
+
+19--Count the number of distinct rows
+df.distinct().count()
+
+20--Print Schema
+df.srintSchema()
+
+21--Print the logical and physical plans
+df.explain()
+
+22-Group by age, count the members in the group
+df.groupBy("age").count().show() 
+
+23-Filter
+df.filter(df["age"]>24).show()
+
+24--Sort
+df.sort(peopledf.age.desc()).collect()
+df.sort("age", ascending=False).collect()
+df.orderBy(["age","city"],ascending=[0,1]).collect()
+
+25--Missing & Replacing Values
+Replace null values
+df.na.fill(50).show()
+
+Return new df omitting rows with null values
+df.na.drop().show() 
+
+Return new df replacing one value with other
+df.na.replace(10, 20).show()
+
+26--Repartitioning
+df with 10 partitions
+df.repartition(10).rdd.getNumPartitions()
+
+df with 1 partition
+df.coalesce(1).rdd.getNumPartitions()
+
+27-View
+df.createTempView("customer")
+
+28-Query View
+df5 = spark.sql("SELECT * FROM customer").show()
+
+29-Write & Save to Files
+df.select("firstName", "city").write..save("namesAndAges.json",format="json")
+
+30-Stop Spark Session
+spark.stop()
+
