@@ -1,0 +1,56 @@
+To go to kafka broker path-
+cd /usr/hdp/current/kafka-broker
+
+                                             TOPICS
+                 
+                 
+1. Create a new kafka topic
+   bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic ineuron
+ 
+2. List down all the topics
+   bin/kafka-topics.sh --list --zookeeper localhost:2181
+   
+3. To get the details of every topic
+   bin/kafka-topics.sh --describe -zookeeper localhost:2181 --topic test
+   
+4. To add more partition in a topic
+   bin/kafka-topics.sh --zookeeper localhost:2181 --alter --topic my-topic --partitions 16
+   
+5. To delete a topic
+   bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic my-topic
+   
+6. To see under replicated partition for all topics
+   kafka-topics --zookeeper localhost:2181/kafka-cluster --describe --under-replicated-partitions
+   
+
+                                             PRODUCERS
+                                            
+1. Produce messages from standard input
+   bin/kafka-console-producer.sh --broker-list localhost:2181 --topic test -siddharth
+   
+2. Produce new messages from an existing file named
+   bin/kafka-console-producer.sh --broker-list localhost:2181 --topic test < messages.txt
+   
+3. Produce Avro messages as follows
+   kafka-avro-console-producer --broker-list localhost:9092 --topic my.Topic --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}' --property schema.registry.url=http://localhost:8081
+
+
+
+                                             CONSUMERS
+                                         
+ 1. Begin a consumer from the beginning of the log as follows:
+    bin/kafka-console-consumer.sh --bootstrap-server localhost:2181 --topic ineuron --from-beginning 
+    
+ 2. Consume a single message as follows:
+    bin/kafka-console-consumer.sh --bootstrap-server localhost:2181 --topic siddharth  --max-messages 1
+    
+ 
+
+	
+
+
+
+	
+
+
+
