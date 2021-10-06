@@ -22,6 +22,12 @@ cd /usr/hdp/current/kafka-broker
 6. To see under replicated partition for all topics
    kafka-topics --zookeeper localhost:2181/kafka-cluster --describe --under-replicated-partitions
    
+7. Change topic retention i.e set SLA
+   This set retention of 8-hours on messages coming to topic mytopic. After 8 hours message will be deleted.
+   bin/kafka-topics.sh --zookeeper localhost:2181 --alter --topic mytopic --config retention.ms=28800000*
+   
+   
+   
 
                                              PRODUCERS
                                             
