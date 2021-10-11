@@ -296,4 +296,15 @@ df.groupBy("department") \
     .where(col("sum_bonus") >= 50000) \
     .show(truncate=False)
     
+44--Count
+df.count()
+
+45-Info Schema
+df.printSchema()
+
+46-To create a tempory table
+temp_table="loanstats"
+df.createOrReplaceTempView(temp_table)
+
+    
 
