@@ -1,0 +1,18 @@
+from pyspark.sql.functions import regexp_replace,regexp_extract
+from pyspark.sql.functions import col
+
+1-Regex replace
+regex_string='years|year|\\+|\\<'
+df_sel.select(regexp_replace(col("emp_length"),regex_string,
+("").alias("cleaned col"),col("emp length")).show(10)
+
+2-Regex extract
+regex_string='\\d+'
+df_sel.select(regexp_extract(col("emp_length"),regex_string,
+(0).alias("cleaned col"),col("emp length")).show(10)
+
+3-Assign column back to the data frame after cleaning
+df_sel=df_sel.withColumn("term_cleaned",regexp_replace(col("term"),"months","")).withColumn("emplen_cleaned",regexp_extract(col("emp_length"),"\\d+",0))
+
+
+ 
