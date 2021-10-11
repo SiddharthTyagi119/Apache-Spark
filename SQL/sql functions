@@ -107,3 +107,18 @@ df.select("firstName", "city").write..save("namesAndAges.json",format="json")
 30-Stop Spark Session
 spark.stop()
 
+31-Covariance
+df.stat.cov('name','age')
+
+32-Correlation
+df.stat.corr('name','age')
+
+33-Crosstab
+df..stat.crosstab('loan','grade').show()
+
+34-Frequency Item
+freq=df.stat.freqItems(['purpose','grade'],0.3)
+freq.collect()
+
+
+
