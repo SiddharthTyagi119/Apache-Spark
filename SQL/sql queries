@@ -1,0 +1,16 @@
+1-To create a tempory table
+temp_table="loanstats"
+df.createOrReplaceTempView(temp_table)
+
+2- Select
+%sh
+select * from tablename
+
+3-Select specific column 
+df2=df.select("name","age","class")
+
+4-Cache the df(load into executive memory)
+df.cache()
+
+5-Distinct
+select distinct (column name) from (table name) limit 50
