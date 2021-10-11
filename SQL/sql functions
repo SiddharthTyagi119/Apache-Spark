@@ -124,6 +124,15 @@ freq.collect()
 from pyspark.sql.functions import isnan,when,count,col
 df.select([count(when(isnan(c) | col(c).isNull(),c)).alias(c) for c in df_sel.columns]).show()
 
+36-Drop NULL values
+df=df.na.drop("all",subset=["loan_status"])
+
+37-To replace the null values with avg of values
+def fill_avg(df,column_name):
+         return df.select(colname).agg(avg(colname))
+ rev_avg=fill_avg(df,'colname')
+ 
+
 
 
 
