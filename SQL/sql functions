@@ -120,5 +120,11 @@ df..stat.crosstab('loan','grade').show()
 freq=df.stat.freqItems(['purpose','grade'],0.3)
 freq.collect()
 
+35-Check NULL values
+from pyspark.sql.functions import isnan,when,count,col
+df.select([count(when(isnan(c) | col(c).isNull(),c)).alias(c) for c in df_sel.columns]).show()
+
+
+
 
 
