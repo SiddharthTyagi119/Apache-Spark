@@ -14,3 +14,6 @@ df.cache()
 
 5-Distinct
 select distinct (column name) from (table name) limit 50
+
+6-GroupBy
+select loan_status, count(*) from loanstats group by loan_status order by 2 desc 
