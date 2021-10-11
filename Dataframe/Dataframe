@@ -306,6 +306,10 @@ df.printSchema()
 temp_table="loanstats"
 df.createOrReplaceTempView(temp_table)
 
+47-Describe
+display(df.describe())
+
+
 
 
     
